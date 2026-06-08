@@ -87,7 +87,7 @@ Plataforma de trámites digitales para servicios gubernamentales mexicanos. Perm
 ### Paso 2: Deploy
 
 1. Conectar el repositorio a Vercel
-2. Configurar la variable de entorno `DATABASE_URL` con la connection string de PostgreSQL
+2. Configurar la variable de entorno `git` con la connection string de PostgreSQL
 3. Deploy
 
 ### Paso 3: Inicializar Datos
