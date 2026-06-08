@@ -611,8 +611,79 @@ function LandingView({ onLogin, onRegister, services }: { onLogin: () => void; o
                 </Button>
               </motion.div>
             </motion.div>
+
+            {/* Trust indicators */}
+            <motion.div
+              className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              {[
+                { icon: Shield, label: 'Trámites seguros' },
+                { icon: Clock, label: 'Respuesta rápida' },
+                { icon: MessageCircle, label: 'Soporte por WhatsApp' },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-center gap-2 text-gray-400">
+                  <Icon className="w-4 h-4 text-blue-400" />
+                  <span className="text-sm">{label}</span>
+                </div>
+              ))}
+            </motion.div>
           </div>
+
+          {/* Stats */}
+          <motion.div
+            className="mt-16 grid grid-cols-3 gap-4 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            {[
+              { value: '27+', label: 'Servicios' },
+              { value: '8', label: 'Categorías' },
+              { value: '24/7', label: 'Disponible' },
+            ].map(stat => (
+              <div key={stat.label} className="text-center rounded-xl border border-gray-800 bg-gray-900/50 backdrop-blur-sm py-5">
+                <p className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</p>
+                <p className="text-gray-500 text-sm mt-1">{stat.label}</p>
+              </div>
+            ))}
+          </motion.div>
         </div>
+      </section>
+
+      {/* Features */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-white mb-4">¿Por qué elegir DAX?</h2>
+          <p className="text-gray-400 max-w-xl mx-auto">Hacemos tus trámites simples, rápidos y confiables</p>
+        </div>
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+          variants={staggerContainer}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true, margin: '-80px' }}
+        >
+          {[
+            { icon: Clock, title: 'Rápido y eficiente', desc: 'Procesamos tus solicitudes en el menor tiempo posible para que no esperes de más.' },
+            { icon: Shield, title: 'Seguro y confiable', desc: 'Tus datos están protegidos. Manejamos tu información con la máxima confidencialidad.' },
+            { icon: Wallet, title: 'Saldo a tu favor', desc: 'Recarga tu saldo y úsalo cuando quieras en cualquiera de nuestros servicios.' },
+          ].map(({ icon: Icon, title, desc }) => (
+            <motion.div key={title} variants={staggerItem}>
+              <Card className="h-full bg-gray-900/80 backdrop-blur-sm border-gray-800 hover:border-blue-500/50 transition-all duration-300">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4">
+                    <Icon className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <h3 className="text-white font-semibold text-lg mb-2">{title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
 
       {/* Services */}
@@ -716,6 +787,20 @@ function LandingView({ onLogin, onRegister, services }: { onLogin: () => void; o
               <span className="text-gray-400">© 2025 DAX Servicios Digitales</span>
             </div>
             <p className="text-gray-600 text-sm">Tu plataforma de trámites digitales</p>
+          </div>
+          <Separator className="my-6 bg-gray-800" />
+          <div className="flex items-center justify-center">
+            <a
+              href="https://synkdata.online"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              <span>Powered by</span>
+              <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 group-hover:from-blue-300 group-hover:to-blue-500 transition-all">
+                Synkdata.online
+              </span>
+            </a>
           </div>
         </div>
       </footer>
@@ -1063,11 +1148,26 @@ function DashboardView({ user, services, onLogout, onRefreshUser, mobileMenuOpen
           )}
         </AnimatePresence>
       </main>
+
+      {/* Credits */}
+      <footer className="border-t border-gray-800 py-4">
+        <div className="max-w-7xl mx-auto w-full px-4 flex items-center justify-center">
+          <a
+            href="https://synkdata.online"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-300 transition-colors"
+          >
+            <span>Powered by</span>
+            <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 group-hover:from-blue-300 group-hover:to-blue-500 transition-all">
+              Synkdata.online
+            </span>
+          </a>
+        </div>
+      </footer>
     </div>
   )
 }
-
-// ==================== USER: INICIO ====================
 function UserInicio({ user, onNavigate }: { user: UserInfo; onNavigate: (tab: UserTab) => void }) {
   return (
     <div className="space-y-6">
