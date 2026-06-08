@@ -780,16 +780,79 @@ function LandingView({ onLogin, onRegister, services }: { onLogin: () => void; o
 
       {/* Footer */}
       <footer className="bg-gray-950 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Image src="/logo.png" alt="DAX" width={30} height={30} />
-              <span className="text-gray-400">© 2025 DAX Servicios Digitales</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Brand */}
+            <div className="lg:col-span-2">
+              <div className="flex items-center gap-3 mb-4">
+                <Image src="/logo.png" alt="DAX" width={36} height={36} />
+                <span className="text-xl font-bold text-white">DAX</span>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
+                Tu plataforma de trámites digitales. Realizamos tus gestiones de actas, RFC, SAT, IMSS e Infonavit de forma rápida y segura.
+              </p>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-5">
+                {[
+                  { icon: Shield, label: 'Trámites seguros' },
+                  { icon: Clock, label: 'Respuesta rápida' },
+                ].map(({ icon: Icon, label }) => (
+                  <div key={label} className="flex items-center gap-2 text-gray-500 text-xs">
+                    <Icon className="w-3.5 h-3.5 text-blue-400" />
+                    <span>{label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <p className="text-gray-600 text-sm">Tu plataforma de trámites digitales</p>
+
+            {/* Quick actions */}
+            <div>
+              <h4 className="text-white font-semibold text-sm mb-4">Plataforma</h4>
+              <ul className="space-y-3">
+                <li>
+                  <button onClick={onRegister} className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
+                    Crear cuenta
+                  </button>
+                </li>
+                <li>
+                  <button onClick={onLogin} className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
+                    Iniciar sesión
+                  </button>
+                </li>
+                <li>
+                  <a href="#" className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
+                    Nuestros servicios
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="text-white font-semibold text-sm mb-4">Contacto</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a
+                    href="https://wa.me/529613142550"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-gray-400 hover:text-green-400 text-sm transition-colors"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    Soporte por WhatsApp
+                  </a>
+                </li>
+                <li className="flex items-center gap-2 text-gray-400 text-sm">
+                  <Phone className="w-4 h-4" />
+                  961 314 2550
+                </li>
+              </ul>
+            </div>
           </div>
-          <Separator className="my-6 bg-gray-800" />
-          <div className="flex items-center justify-center">
+
+          <Separator className="my-8 bg-gray-800" />
+
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span className="text-gray-500 text-sm">© 2026 DAX Servicios Digitales. Todos los derechos reservados.</span>
             <a
               href="https://synkdata.online"
               target="_blank"
@@ -899,6 +962,19 @@ function LoginView({ onLogin, onBack, onRegister }: { onLogin: (user: UserInfo, 
           </CardContent>
         </Card>
         </motion.div>
+        <div className="mt-8 flex items-center justify-center">
+          <a
+            href="https://synkdata.online"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-1.5 text-xs text-gray-600 hover:text-gray-400 transition-colors"
+          >
+            <span>Powered by</span>
+            <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 group-hover:from-blue-300 group-hover:to-blue-500 transition-all">
+              Synkdata.online
+            </span>
+          </a>
+        </div>
       </div>
     </motion.div>
   )
@@ -1011,6 +1087,19 @@ function RegisterView({ onRegister, onBack, onLogin }: { onRegister: (user: User
           </CardContent>
         </Card>
         </motion.div>
+        <div className="mt-8 flex items-center justify-center">
+          <a
+            href="https://synkdata.online"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-1.5 text-xs text-gray-600 hover:text-gray-400 transition-colors"
+          >
+            <span>Powered by</span>
+            <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 group-hover:from-blue-300 group-hover:to-blue-500 transition-all">
+              Synkdata.online
+            </span>
+          </a>
+        </div>
       </div>
     </motion.div>
   )
@@ -1151,7 +1240,8 @@ function DashboardView({ user, services, onLogout, onRefreshUser, mobileMenuOpen
 
       {/* Credits */}
       <footer className="border-t border-gray-800 py-4">
-        <div className="max-w-7xl mx-auto w-full px-4 flex items-center justify-center">
+        <div className="max-w-7xl mx-auto w-full px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <span className="text-xs text-gray-600">© 2026 DAX Servicios Digitales</span>
           <a
             href="https://synkdata.online"
             target="_blank"
