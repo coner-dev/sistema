@@ -6,12 +6,6 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   reactStrictMode: false,
-  // Needed for Railway: allow the server to bind to 0.0.0.0
-  experimental: {
-    serverActions: {
-      allowedOrigins: ["*"],
-    },
-  },
 };
 
 export default nextConfig;
