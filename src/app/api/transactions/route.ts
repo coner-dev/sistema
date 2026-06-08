@@ -1,5 +1,6 @@
 import { db } from '@/lib/db'
 import { NextResponse } from 'next/server'
+import { telegramService } from '@/lib/telegram'
 
 export async function GET(request: Request) {
   try {
@@ -72,9 +73,22 @@ export async function POST(request: Request) {
       },
     })
 
+    await telegramService.notifyNewDeposit(
+      transaction.id,
+      user.name,
+      user.email,
+      amount,
+      reference
+    )
+
     return NextResponse.json({ transaction })
   } catch (error) {
     console.error('Create transaction error:', error)
+    await telegramService.notifyError(
+      'Error al crear transacción',
+      error instanceof Error ? error.message : 'Error desconocido',
+      'POST /api/transactions'
+    )
     return NextResponse.json({ error: 'Error al crear transacción' }, { status: 500 })
   }
 }

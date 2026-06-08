@@ -1,6 +1,7 @@
 import { db } from '@/lib/db'
 import { NextResponse } from 'next/server'
 import { randomUUID } from 'crypto'
+import { telegramService } from '@/lib/telegram'
 
 export async function POST(request: Request) {
   try {
@@ -27,6 +28,8 @@ export async function POST(request: Request) {
       },
     })
 
+    await telegramService.notifyNewUser(email, name, phone)
+
     return NextResponse.json({
       user: {
         id: user.id,
@@ -40,6 +43,11 @@ export async function POST(request: Request) {
     })
   } catch (error) {
     console.error('Register error:', error)
+    await telegramService.notifyError(
+      'Error al registrar usuario',
+      error instanceof Error ? error.message : 'Error desconocido',
+      'POST /api/auth/register'
+    )
     return NextResponse.json({ error: 'Error al registrar usuario' }, { status: 500 })
   }
 }

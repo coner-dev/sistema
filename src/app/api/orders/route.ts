@@ -1,5 +1,6 @@
 import { db } from '@/lib/db'
 import { NextResponse } from 'next/server'
+import { telegramService } from '@/lib/telegram'
 
 export async function GET(request: Request) {
   try {
@@ -103,9 +104,24 @@ export async function POST(request: Request) {
       },
     })
 
+    await telegramService.notifyNewOrder(
+      order.id,
+      user.name,
+      user.email,
+      service.name,
+      service.category,
+      service.price,
+      service.estimatedTime
+    )
+
     return NextResponse.json({ order })
   } catch (error) {
     console.error('Create order error:', error)
+    await telegramService.notifyError(
+      'Error al crear pedido',
+      error instanceof Error ? error.message : 'Error desconocido',
+      'POST /api/orders'
+    )
     return NextResponse.json({ error: 'Error al crear pedido' }, { status: 500 })
   }
 }
