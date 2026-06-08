@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  password      String
+  name          String
+  phone         String?
+  role          String   @default("user")
+  balance       Float    @default(0)
+  isActive      Boolean  @default(true)
+  sessionToken  String?  @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  transactions  Transaction[]
+  orders        Order[]
+}
+
+model Service {
+  id             String   @id @default(cuid())
+  name           String
+  description    String?
+  estimatedTime  String
+  price          Float
+  category       String   @default("general")
+  isActive       Boolean  @default(true)
+  sortOrder      Int      @default(0)
+  requiredFields String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  orders         Order[]
+}
+
+model Transaction {
+  id            String   @id @default(cuid())
+  userId        String
+  type          String
+  amount        Float
+  status        String   @default("pending")
+  reference     String?
+  receiptUrl    String?
+  notes         String?
+  adminNotes    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user          User     @relation(fields: [userId], references: [id])
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  userId        String
+  serviceId     String
+  status        String   @default("pending")
+  totalPrice    Float
+  notes         String?
+  fieldValues   String?
+  adminNotes    String?
+  resultData    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user          User     @relation(fields: [userId], references: [id])
+  service       Service  @relation(fields: [serviceId], references: [id])
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
