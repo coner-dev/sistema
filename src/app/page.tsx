@@ -15,6 +15,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useToast } from '@/hooks/use-toast'
+import { RequiredFieldsEditor } from '@/components/RequiredFieldsEditor'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Home, FileText, Wallet, ShoppingCart, User, Users, Settings, LogOut, Menu, X,
@@ -2232,11 +2233,11 @@ function AdminUsers() {
 function AdminServices({ services, onRefresh }: { services: Service[]; onRefresh: () => void }) {
   const [showAddDialog, setShowAddDialog] = useState(false)
   const [editingService, setEditingService] = useState<Service | null>(null)
-  const [form, setForm] = useState({ name: '', description: '', estimatedTime: '', price: '', category: 'general', sortOrder: '0' })
+  const [form, setForm] = useState({ name: '', description: '', estimatedTime: '', price: '', category: 'general', sortOrder: '0', requiredFields: '' })
   const [saving, setSaving] = useState(false)
   const { toast } = useToast()
 
-  const resetForm = () => setForm({ name: '', description: '', estimatedTime: '', price: '', category: 'general', sortOrder: '0' })
+  const resetForm = () => setForm({ name: '', description: '', estimatedTime: '', price: '', category: 'general', sortOrder: '0', requiredFields: '' })
 
   const handleAdd = () => { resetForm(); setShowAddDialog(true) }
 
@@ -2248,6 +2249,7 @@ function AdminServices({ services, onRefresh }: { services: Service[]; onRefresh
       price: service.price.toString(),
       category: service.category,
       sortOrder: service.sortOrder.toString(),
+      requiredFields: service.requiredFields || '',
     })
     setEditingService(service)
   }
@@ -2265,6 +2267,7 @@ function AdminServices({ services, onRefresh }: { services: Service[]; onRefresh
             price: parseFloat(form.price),
             category: form.category,
             sortOrder: parseInt(form.sortOrder) || 0,
+            requiredFields: form.requiredFields || null,
           }),
         })
         toast({ title: 'Servicio actualizado' })
@@ -2278,6 +2281,7 @@ function AdminServices({ services, onRefresh }: { services: Service[]; onRefresh
             price: parseFloat(form.price),
             category: form.category,
             sortOrder: parseInt(form.sortOrder) || 0,
+            requiredFields: form.requiredFields || null,
           }),
         })
         toast({ title: 'Servicio creado' })
@@ -2402,6 +2406,13 @@ function AdminServices({ services, onRefresh }: { services: Service[]; onRefresh
                 <Label className="text-gray-300">Orden</Label>
                 <Input type="number" value={form.sortOrder} onChange={e => setForm({ ...form, sortOrder: e.target.value })} className="bg-gray-800 border-gray-700 text-white" />
               </div>
+            </div>
+            <div className="space-y-2 border-t border-gray-700 pt-4">
+              <Label className="text-gray-300">Campos Requeridos del Cliente</Label>
+              <RequiredFieldsEditor
+                value={form.requiredFields}
+                onChange={(value) => setForm({ ...form, requiredFields: value })}
+              />
             </div>
             <DialogFooter>
               <Button variant="outline" onClick={() => { setShowAddDialog(false); setEditingService(null) }} className="border-gray-700 text-gray-300">Cancelar</Button>
