@@ -154,7 +154,7 @@ prisma/
 
 ## Soporte
 
-WhatsApp: 961-314-2550
+WhatsApp: 814-695-4100
 
 ## Licencia
 
