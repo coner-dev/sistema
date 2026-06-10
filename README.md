@@ -1,4 +1,4 @@
-# DAX Servicios Digitales
+# Vortex - Plataforma de Trámites Digitales
 
 Plataforma de trámites digitales para servicios gubernamentales mexicanos. Permite a los usuarios solicitar trámites como actas, RFC, citas SAT, consultas IMSS, Infonavit y más.
 
@@ -43,12 +43,12 @@ Plataforma de trámites digitales para servicios gubernamentales mexicanos. Perm
 
 3. Configurar la base de datos en `.env`:
    ```
-   DATABASE_URL="postgresql://user:password@localhost:5432/dax?schema=public"
+   DATABASE_URL="postgresql://user:password@localhost:5432/vortex?schema=public"
    ```
 
 4. Crear la base de datos PostgreSQL:
    ```sql
-   CREATE DATABASE dax;
+   CREATE DATABASE vortex;
    ```
 
 5. Aplicar el schema de Prisma:
@@ -70,11 +70,11 @@ Plataforma de trámites digitales para servicios gubernamentales mexicanos. Perm
 
 | Variable | Descripción | Ejemplo |
 |----------|-------------|---------|
-| `DATABASE_URL` | Connection string de PostgreSQL | `postgresql://user:password@localhost:5432/dax?schema=public` |
+| `DATABASE_URL` | Connection string de PostgreSQL | `postgresql://user:password@localhost:5432/vortex?schema=public` |
 
 ## Credenciales de Admin
 
-- **Email**: admin@dax.com
+- **Email**: admin@vortex.com
 - **Password**: admin123
 
 ## Deployment en Vercel
@@ -87,7 +87,7 @@ Plataforma de trámites digitales para servicios gubernamentales mexicanos. Perm
 ### Paso 2: Deploy
 
 1. Conectar el repositorio a Vercel
-2. Configurar la variable de entorno `git` con la connection string de PostgreSQL
+2. Configurar la variable de entorno `DATABASE_URL` con la connection string de PostgreSQL
 3. Deploy
 
 ### Paso 3: Inicializar Datos
@@ -146,10 +146,11 @@ prisma/
 
 ## Información de Pago
 
-- **Nombre**: Diego Cruz Mazariegos
-- **Banco**: Mercado Pago
-- **CLABE**: 722969028834827397
-- **Tarjeta**: 5428 7807 5481 8680
+- **Nombre**: Soluciones Digitales
+- **Banco**: Santander
+- **CLABE**: 0146 1014 0229 4278 94
+- **Concepto**: PANELTRAMITES
+- **Monto Mínimo**: $250.00 MXN
 
 ## Soporte
 
@@ -157,4 +158,4 @@ WhatsApp: 961-314-2550
 
 ## Licencia
 
-Propietario - DAX Servicios Digitales
+Propietario - Vortex
